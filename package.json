@@ -1,0 +1,14 @@
+{
+  "name": "oak-national-static-errors-2022",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static Cloudflare Error Pages",
+  "repository": "git@github.com:oaknational/static-website-error-pages-2022.git",
+  "license": "None",
+  "dependencies": {
+    "serve": "^14.0.1"
+  },
+  "scripts": {
+    "serve": "serve docs/"
+  }
+}
