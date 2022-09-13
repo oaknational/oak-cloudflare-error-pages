@@ -6,9 +6,11 @@
   "repository": "git@github.com:oaknational/static-website-error-pages-2022.git",
   "license": "None",
   "dependencies": {
+    "collapsify": "^0.7.2",
     "serve": "^14.0.1"
   },
   "scripts": {
-    "serve": "serve docs/"
+    "serve": "serve docs/",
+    "collapsify": "collapsify-server -p 5000"
   }
 }
