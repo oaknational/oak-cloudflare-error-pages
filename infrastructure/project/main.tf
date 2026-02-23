@@ -12,10 +12,10 @@ resource "terraform_data" "workspace_validation" {
 }
 
 module "vercel" {
-  source                           = "github.com/oaknational/oak-terraform-modules//modules/vercel_project?ref=v1.3.6"
+  source                           = "github.com/oaknational/oak-terraform-modules//modules/vercel_project?ref=v1.4.2"
   build_type                       = "cloudflare"
   cloudflare_zone_domain           = var.cloudflare_zone_domain
-  framework                        = null
+  framework                        = "other"
   project_visibility               = "public"
   git_repo                         = "oaknational/static-website-error-pages-2022"
   protection_bypass_for_automation = false
