@@ -32,3 +32,7 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+# Terraform Cloud backend configuration. This repository is public, so the real
+# backend.tf (with the organisation name) is generated from backend.tf.template
+# and must never be committed.
+backend.tf

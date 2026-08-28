@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Static Cloudflare Error Pages",
   "repository": "git@github.com:oaknational/oak-cloudflare-error-pages.git",
-  "license": "None",
+  "license": "MIT",
   "dependencies": {
     "collapsify": "^0.8.0",
     "serve": "^14.2.6"
