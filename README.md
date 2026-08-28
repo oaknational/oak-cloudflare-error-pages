@@ -1,14 +1,14 @@
-# static-website-error-pages
+# Oak Cloudflare error pages
 
 Oak's custom Cloudflare error and challenge pages for `thenational.academy`.
 
-Cloudflare fetches each page from this repo's GitHub Pages site — `https://oaknational.github.io/static-website-error-pages/<file>.html`, published from `docs/` on `main` — and then serves its own cached copy. Changes here are therefore only visible to users once Cloudflare re-fetches the page.
+Cloudflare fetches each page from this repo's GitHub Pages site — `https://oaknational.github.io/oak-cloudflare-error-pages/<file>.html`, published from `docs/` on `main` — and then serves its own cached copy. Changes here are therefore only visible to users once Cloudflare re-fetches the page.
 
 ## Updating a page
 
 - Edit the HTML file(s) in `docs/`.
 - Commit to a branch and open a Pull Request for review.
-- Merge into `main` and confirm the deploy on [GitHub Pages](https://github.com/oaknational/static-website-error-pages/deployments/github-pages).
+- Merge into `main` and confirm the deploy on [GitHub Pages](https://github.com/oaknational/oak-cloudflare-error-pages/deployments/github-pages).
 - Make Cloudflare re-fetch the page — either apply the Cloud-Config `cloudflare-misc` workspace (see below; an apply re-fetches every page), or in the Cloudflare dashboard: thenational.academy → Error Pages → three dots next to the page → **Fetch custom page again**.
 
 ## Wiring: which page serves which error
@@ -46,5 +46,5 @@ Or, with the npm tooling (`npm install` first):
 npm run serve                      # serves docs/ on http://localhost:3000
 # inline a page's external assets into a single self-contained file
 # (collapsify refuses localhost/private URLs by default; pass -x '^$' to allow them)
-npm run collapsify -- -o out.html https://oaknational.github.io/static-website-error-pages/custom-error-500.html
+npm run collapsify -- -o out.html https://oaknational.github.io/oak-cloudflare-error-pages/custom-error-500.html
 ```

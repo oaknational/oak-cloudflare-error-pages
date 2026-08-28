@@ -1,9 +1,9 @@
 {
-  "name": "oak-national-static-errors",
+  "name": "oak-cloudflare-error-pages",
   "private": true,
   "version": "1.0.0",
   "description": "Static Cloudflare Error Pages",
-  "repository": "git@github.com:oaknational/static-website-error-pages.git",
+  "repository": "git@github.com:oaknational/oak-cloudflare-error-pages.git",
   "license": "None",
   "dependencies": {
     "collapsify": "^0.8.0",
