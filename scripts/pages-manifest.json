@@ -1,0 +1,39 @@
+{
+  "$comment": "One entry per page in docs/. `types` are the Cloudflare custom page API ids the file is wired to (see Cloud-Config infrastructure/cloudflare/misc/custom_pages.tf); `tokens` are the ::TOKEN:: strings that must appear exactly once, in the <p> directly after the <h1>. Checked by scripts/check-pages.mjs.",
+  "custom-error-500.html": {
+    "types": ["500_errors"],
+    "tokens": ["::CLOUDFLARE_ERROR_500S_BOX::"]
+  },
+  "custom-error-1000.html": {
+    "types": ["1000_errors"],
+    "tokens": ["::CLOUDFLARE_ERROR_1000S_BOX::"]
+  },
+  "custom-error-always-online.html": {
+    "types": [],
+    "tokens": ["::ALWAYS_ONLINE_NO_COPY_BOX::"]
+  },
+  "custom-error-geo-block.html": {
+    "types": ["ip_block"],
+    "tokens": ["::GEO::"]
+  },
+  "custom-error-under-attack.html": {
+    "types": ["country_challenge"],
+    "tokens": ["::CAPTCHA_BOX::"]
+  },
+  "custom-error-waf-challenge.html": {
+    "types": ["basic_challenge", "managed_challenge"],
+    "tokens": ["::CAPTCHA_BOX::"]
+  },
+  "custom-error-non-interactive-challenge.html": {
+    "types": ["under_attack"],
+    "tokens": ["::IM_UNDER_ATTACK_BOX::"]
+  },
+  "custom-error-waf-block.html": {
+    "types": ["waf_block"],
+    "tokens": []
+  },
+  "custom-error-rate-limit.html": {
+    "types": ["ratelimit_block"],
+    "tokens": []
+  }
+}

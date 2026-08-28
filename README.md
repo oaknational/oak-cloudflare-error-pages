@@ -33,6 +33,20 @@ There is no template or build step: every file in `docs/` is a self-contained co
 
 The API id and required token for each type can be confirmed with `GET /zones/{zone_id}/custom_pages`.
 
+## Checks
+
+Every pull request runs the **Pages checks** workflow (`.github/workflows/pages-checks.yml`); run the same locally with `npm test` after `npm install`:
+
+| Command | What it checks |
+| --- | --- |
+| `npm run check:pages` | The Cloudflare contract for every page in `docs/`: `<head>…</head>` present, under 1.5 MB, no `referrer` meta, exactly one `<h1>`, the page's `::TOKEN::` (from `scripts/pages-manifest.json`) sitting in the `<p>` directly after the `<h1>` — and that all pages share byte-identical boilerplate apart from `<title>`, `<h1>` and that `<p>`. |
+| `npm run lint:html` | HTML validity via [html-validate](https://html-validate.org/) (`.htmlvalidate.json`). |
+| `npm run test:a11y` | WCAG 2.2 A/AA + best-practice rules via [axe-core](https://github.com/dequelabs/axe-core) (driven by Playwright) on every page at a desktop (1280px) and a mobile (iPhone 13) viewport. Run `npx playwright install chromium` once first. |
+
+When you add a page, add it to `scripts/pages-manifest.json` too (file → Cloudflare type(s) → required tokens) or `check:pages` fails.
+
+After every push to `main`, the **Pages smoke test** workflow (`npm run smoke`) polls the live GitHub Pages origin until each page serves exactly the committed file, so a broken publish is caught before Cloudflare's next fetch.
+
 ## Local preview
 
 ```sh
