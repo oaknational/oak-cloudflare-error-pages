@@ -25,16 +25,22 @@
     />
     <script defer src="./copyright.js"></script>
 
-    <title>Error: Oak National Academy</title>
+    <title>Server error: Oak National Academy</title>
 
     <style>
       @import url("https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&family=Lexend:wght@400;700&display=swap");
       * {
-        font-family: "Lexend";
+        font-family: "Lexend", Arial, sans-serif;
+      }
+      html {
+        overflow-x: hidden;
       }
       body {
         margin: 0;
         padding: 0;
+        position: relative;
+        display: flow-root;
+        overflow-x: clip;
         font-family: Montserrat, Arial, sans-serif;
       }
 
@@ -55,7 +61,7 @@
 
       .container {
         margin: 80px auto;
-        width: 800px;
+        max-width: 800px;
         padding: 16px;
         min-height: calc(100vh - 40px);
       }
@@ -111,9 +117,11 @@
   </head>
 
   <body>
-    <div class="header">
+    <header class="header">
       <div class="logo-wrapper">
         <svg
+          role="img"
+          aria-label="Oak National Academy"
           width="104"
           height="45"
           viewBox="0 0 104 45"
@@ -209,10 +217,12 @@
           </defs>
         </svg>
       </div>
-    </div>
-    <div class="container">
+    </header>
+    <main class="container">
       <div class="arrow-wrapper">
         <svg
+          aria-hidden="true"
+          focusable="false"
           width="536"
           height="310"
           viewBox="0 0 536 310"
@@ -231,11 +241,11 @@
           <p>::CLOUDFLARE_ERROR_500S_BOX::</p>
         </div>
       </div>
-    </div>
+    </main>
 
-    <div class="footer">
+    <footer class="footer">
       &#xA9; <span id="copyright_year">2022</span> Oak National Academy
-    </div>
+    </footer>
 
     <script
       src="https://code.jquery.com/jquery-3.1.0.min.js"
