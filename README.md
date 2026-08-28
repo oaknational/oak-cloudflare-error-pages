@@ -1,19 +1,19 @@
-# static-website-error-pages-2022
-Cloudflare static error pages, 2022 rebuild.
+# static-website-error-pages
 
-The pages can be updated here, then need to be re-imported into Cloudflare in order for changes to be visible to users.
+Oak's custom Cloudflare error and challenge pages for `thenational.academy`.
 
-Follow these steps to deploy new or updated custom Cloudflare error pages:
+Cloudflare fetches each page from this repo's GitHub Pages site — `https://oaknational.github.io/static-website-error-pages/<file>.html`, published from `docs/` on `main` — and then serves its own cached copy. Changes here are therefore only visible to users once Cloudflare re-fetches the page.
 
-- Make the desired changes to the HTML error page file(s) in the `docs/` directory
+## Updating a page
 
-- Commit changes to a new branch and open a Pull Request(PR) for review
+- Edit the HTML file(s) in `docs/`.
+- Commit to a branch and open a Pull Request for review.
+- Merge into `main` and confirm the deploy on [GitHub Pages](https://github.com/oaknational/static-website-error-pages/deployments/github-pages).
+- Make Cloudflare re-fetch the page — either apply the Cloud-Config `cloudflare-misc` workspace (see below; an apply re-fetches every page), or in the Cloudflare dashboard: thenational.academy → Error Pages → three dots next to the page → **Fetch custom page again**.
 
-- Once approved, merge into main branch and verify Deployment by confirming changes are live on [GitHub Pages](https://github.com/oaknational/static-website-error-pages-2022/deployments/github-pages).
+## Wiring: which page serves which error
 
-- Go to Cloudflare Dashboard → thenational.academy → Error Pages → three dots next to the relevant error page → Fetch custom page again. This pulls the latest HTML into Cloudflare.
-
-To wire up a **new** page for the first time: Error Pages → three dots next to the error type → Edit → select **Custom page** → paste the page's GitHub Pages URL (`https://oaknational.github.io/static-website-error-pages-2022/<file>.html`) → Save. Cloudflare validates that the required token (below) is present when it fetches the page.
+The mapping from Cloudflare error-page type to URL is Terraform in [Cloud-Config](https://github.com/oaknational/Cloud-Config): `infrastructure/cloudflare/misc/custom_pages.tf` (`local.custom_pages`, one `{ type, url }` entry per page). To add a page: add the HTML here and merge, then add an entry there and apply. Cloudflare validates that the required token (below) is present when it fetches the page.
 
 ## Pages
 
@@ -23,7 +23,7 @@ There is no template or build step: every file in `docs/` is a self-contained co
 | --- | --- | --- |
 | `custom-error-500.html` | 500 class errors (`500_errors`) | `::CLOUDFLARE_ERROR_500S_BOX::` |
 | `custom-error-1000.html` | 1000 class errors (`1000_errors`) | `::CLOUDFLARE_ERROR_1000S_BOX::` |
-| `custom-error-always-online.html` | Always Online | `::ALWAYS_ONLINE_NO_COPY_BOX::` |
+| `custom-error-always-online.html` | Always Online (type no longer offered by Cloudflare; kept for reference) | `::ALWAYS_ONLINE_NO_COPY_BOX::` |
 | `custom-error-geo-block.html` | IP/Country block (`ip_block`) | none (`::GEO::` is present but not required) |
 | `custom-error-under-attack.html` | IP/Country challenge (`country_challenge`) | `::CAPTCHA_BOX::` |
 | `custom-error-waf-challenge.html` | Interactive / Managed challenge (`basic_challenge`, `managed_challenge`) | `::CAPTCHA_BOX::` |
@@ -46,5 +46,5 @@ Or, with the npm tooling (`npm install` first):
 npm run serve                      # serves docs/ on http://localhost:3000
 # inline a page's external assets into a single self-contained file
 # (collapsify refuses localhost/private URLs by default; pass -x '^$' to allow them)
-npm run collapsify -- -o out.html https://oaknational.github.io/static-website-error-pages-2022/custom-error-500.html
+npm run collapsify -- -o out.html https://oaknational.github.io/static-website-error-pages/custom-error-500.html
 ```
