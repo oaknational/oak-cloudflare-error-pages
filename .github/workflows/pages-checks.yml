@@ -27,6 +27,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: docs/ is generated from src/ and up to date
+        run: npm run build -- --check
+
       - name: Cloudflare contract and boilerplate parity
         run: npm run check:pages
 

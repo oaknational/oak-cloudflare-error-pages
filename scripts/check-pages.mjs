@@ -11,11 +11,12 @@ import { readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 
 const DOCS_DIR = "docs";
-const MANIFEST = "scripts/pages-manifest.json";
+const MANIFEST = "src/pages.json";
 const MAX_BYTES = 1_500_000; // Cloudflare limit
 
-const manifest = JSON.parse(readFileSync(MANIFEST, "utf8"));
-delete manifest.$comment;
+const manifest = Object.fromEntries(
+  JSON.parse(readFileSync(MANIFEST, "utf8")).pages.map((page) => [page.file, page])
+);
 
 const files = readdirSync(DOCS_DIR)
   .filter((f) => /^custom-error-.*\.html$/.test(f))
