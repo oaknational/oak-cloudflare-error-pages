@@ -1,0 +1,108 @@
+{
+  "$comment": "Source of truth for docs/custom-error-*.html - run `npm run build` after editing. `title`, `heading` and `body` are inserted into src/template.html verbatim (HTML allowed). `types` are the Cloudflare custom page API ids the file is wired to in Cloud-Config infrastructure/cloudflare/misc/custom_pages.tf; `tokens` are the ::TOKEN:: strings Cloudflare requires, which must appear in `body` (checked by build and check-pages).",
+  "pages": [
+    {
+      "file": "custom-error-500.html",
+      "title": "Server error: Oak National Academy",
+      "heading": "Uh oh... There&apos;s been an error",
+      "body": "::CLOUDFLARE_ERROR_500S_BOX::",
+      "types": [
+        "500_errors"
+      ],
+      "tokens": [
+        "::CLOUDFLARE_ERROR_500S_BOX::"
+      ]
+    },
+    {
+      "file": "custom-error-1000.html",
+      "title": "Error: Oak National Academy",
+      "heading": "Uh oh... There&apos;s been an error",
+      "body": "::CLOUDFLARE_ERROR_1000S_BOX::",
+      "types": [
+        "1000_errors"
+      ],
+      "tokens": [
+        "::CLOUDFLARE_ERROR_1000S_BOX::"
+      ]
+    },
+    {
+      "file": "custom-error-always-online.html",
+      "title": "Site unavailable: Oak National Academy",
+      "heading": "Uh oh... There&apos;s been an error",
+      "body": "::ALWAYS_ONLINE_NO_COPY_BOX::",
+      "types": [],
+      "tokens": [
+        "::ALWAYS_ONLINE_NO_COPY_BOX::"
+      ]
+    },
+    {
+      "file": "custom-error-geo-block.html",
+      "title": "Access blocked: Oak National Academy",
+      "heading": "There&apos;s been an error",
+      "body": "::GEO::",
+      "types": [
+        "ip_block"
+      ],
+      "tokens": [
+        "::GEO::"
+      ]
+    },
+    {
+      "file": "custom-error-under-attack.html",
+      "title": "Security check: Oak National Academy",
+      "heading": "Hmm... Are you human&quest;",
+      "body": "::CAPTCHA_BOX::",
+      "types": [
+        "country_challenge"
+      ],
+      "tokens": [
+        "::CAPTCHA_BOX::"
+      ]
+    },
+    {
+      "file": "custom-error-waf-challenge.html",
+      "title": "Security check: Oak National Academy",
+      "heading": "Hmm... Are you human&quest;",
+      "body": "::CAPTCHA_BOX::",
+      "types": [
+        "basic_challenge",
+        "managed_challenge"
+      ],
+      "tokens": [
+        "::CAPTCHA_BOX::"
+      ]
+    },
+    {
+      "file": "custom-error-non-interactive-challenge.html",
+      "title": "Security check: Oak National Academy",
+      "heading": "Just a moment...",
+      "body": "::IM_UNDER_ATTACK_BOX::",
+      "types": [
+        "under_attack"
+      ],
+      "tokens": [
+        "::IM_UNDER_ATTACK_BOX::"
+      ]
+    },
+    {
+      "file": "custom-error-waf-block.html",
+      "title": "Access blocked: Oak National Academy",
+      "heading": "Sorry, we&apos;ve blocked this request",
+      "body": "Our security service has blocked this request because it looked suspicious. If you think this is a mistake, please <a href=\"https://www.thenational.academy/contact-us\">contact us</a>.",
+      "types": [
+        "waf_block"
+      ],
+      "tokens": []
+    },
+    {
+      "file": "custom-error-rate-limit.html",
+      "title": "Too many requests: Oak National Academy",
+      "heading": "Slow down... You&apos;ve made too many requests",
+      "body": "Please wait a few minutes and then try again. If you keep seeing this page, please <a href=\"https://www.thenational.academy/contact-us\">contact us</a>.",
+      "types": [
+        "ratelimit_block"
+      ],
+      "tokens": []
+    }
+  ]
+}

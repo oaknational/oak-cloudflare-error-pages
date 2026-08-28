@@ -16,7 +16,8 @@
     "lint:html": "html-validate \"docs/*.html\"",
     "test:a11y": "node scripts/a11y.mjs",
     "smoke": "node scripts/smoke-pages.mjs",
-    "test": "npm run check:pages && npm run lint:html && npm run test:a11y"
+    "test": "npm run build -- --check && npm run check:pages && npm run lint:html && npm run test:a11y",
+    "build": "node scripts/build-pages.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
