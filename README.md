@@ -19,6 +19,8 @@ The mapping from Cloudflare error-page type to URL is Terraform in [Cloud-Config
 
 There is no template or build step: every file in `docs/` is a self-contained copy of the same layout. When adding a page, copy an existing one and change only the `<title>`, `<h1>` and the `<p>` holding the Cloudflare token. Pages must stay under 1.5 MB, contain `<head>…</head>`, and must **not** include a `referrer` meta tag (it breaks challenges).
 
+Pages make **no external requests**: the Lexend font (SIL OFL, variable weight) and the favicons are inlined as data URIs — the source files live in `src/assets/` — and the only script is two inline lines that set the copyright year. This matters because Cloudflare serves the page on `thenational.academy`, where relative paths 404 and third-party requests from a challenge page would leak visitor data. The pages carry `<meta name="robots" content="noindex, nofollow">` and `docs/robots.txt` disallows crawling of the Pages origin.
+
 | File | Cloudflare error page type (API id) | Required token |
 | --- | --- | --- |
 | `custom-error-500.html` | 500 class errors (`500_errors`) | `::CLOUDFLARE_ERROR_500S_BOX::` |
@@ -39,7 +41,7 @@ Every pull request runs the **Pages checks** workflow (`.github/workflows/pages-
 
 | Command | What it checks |
 | --- | --- |
-| `npm run check:pages` | The Cloudflare contract for every page in `docs/`: `<head>…</head>` present, under 1.5 MB, no `referrer` meta, exactly one `<h1>`, the page's `::TOKEN::` (from `scripts/pages-manifest.json`) sitting in the `<p>` directly after the `<h1>` — and that all pages share byte-identical boilerplate apart from `<title>`, `<h1>` and that `<p>`. |
+| `npm run check:pages` | The Cloudflare contract for every page in `docs/`: `<head>…</head>` present, under 1.5 MB, no `referrer` meta, exactly one `<h1>`, the page's `::TOKEN::` (from `scripts/pages-manifest.json`) sitting in the `<p>` directly after the `<h1>`, no external or relative resources (scripts, styles, fonts, images must be inline/data URIs) — and that all pages share byte-identical boilerplate apart from `<title>`, `<h1>` and that `<p>`. |
 | `npm run lint:html` | HTML validity via [html-validate](https://html-validate.org/) (`.htmlvalidate.json`). |
 | `npm run test:a11y` | WCAG 2.2 A/AA + best-practice rules via [axe-core](https://github.com/dequelabs/axe-core) (driven by Playwright) on every page at a desktop (1280px) and a mobile (iPhone 13) viewport. Run `npx playwright install chromium` once first. |
 

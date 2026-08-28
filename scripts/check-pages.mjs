@@ -45,6 +45,18 @@ for (const file of files) {
   if (!/<html[^>]*\blang=/.test(html)) fail(file, "<html> must have a lang attribute");
   if (!/<title>[^<]+<\/title>/.test(html)) fail(file, "must have a non-empty <title>");
 
+  // Pages must be self-contained: no scripts, styles, fonts or images fetched
+  // from anywhere (third-party requests from a challenge page leak visitor data,
+  // and relative paths 404 when Cloudflare serves the page on thenational.academy).
+  // Plain <a href> links are fine.
+  const isInline = (ref) => ref.startsWith("data:") || ref.startsWith("#"); // data URIs and in-document SVG ids are fine
+  const externalRefs = [
+    ...[...html.matchAll(/<(?:script|link|img|iframe|source)\b[^>]*\b(?:src|href)=["']([^"']+)["']/gi)].map((m) => m[1]),
+    ...[...html.matchAll(/@import\b[^;]*;/gi)].map((m) => m[0]),
+    ...[...html.matchAll(/url\(([^)]*)\)/gi)].map((m) => m[1].trim().replace(/^["']|["']$/g, "")),
+  ].filter((ref) => !isInline(ref));
+  for (const ref of externalRefs) fail(file, `references an external or relative resource: ${ref}`);
+
   const h1Count = (html.match(/<h1[\s>]/g) ?? []).length;
   if (h1Count !== 1) fail(file, `must have exactly one <h1> (found ${h1Count})`);
 
