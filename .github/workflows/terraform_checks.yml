@@ -2,6 +2,9 @@ name: Terraform Checks
 
 on: [push]
 
+permissions:
+  contents: read
+
 jobs:
   terraform-lint-format:
     runs-on: ubuntu-latest
