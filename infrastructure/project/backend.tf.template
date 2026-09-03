@@ -1,6 +1,6 @@
 terraform {
   cloud {
-    organization = "oak-national-academy"
+    organization = "your-organization-name"
     workspaces {
       tags = ["repo:static-website-error-pages-2022", "config:project"]
     }
