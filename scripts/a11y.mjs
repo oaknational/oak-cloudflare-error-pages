@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 // Accessibility check: runs axe-core (WCAG 2.0/2.1/2.2 A + AA rules) against
-// every page in docs/ at a desktop and a mobile viewport, serving docs/ locally
-// and driving Chromium via Playwright.
+// every page in docs/ at a desktop and a mobile viewport, driving Chromium via
+// Playwright. Pages are opened straight from disk: check-pages guarantees they
+// load nothing external or relative, so a local server would add nothing.
 
-import { spawn } from "node:child_process";
 import { readdirSync } from "node:fs";
+import path from "node:path";
+import { pathToFileURL } from "node:url";
 import { chromium, devices } from "playwright";
 import AxeBuilder from "@axe-core/playwright";
 
 const DOCS_DIR = "docs";
-const PORT = Number(process.env.PORT ?? 3111);
-const BASE = `http://127.0.0.1:${PORT}`;
 const AXE_TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa", "best-practice"];
 
 const viewports = {
@@ -22,24 +22,6 @@ const files = readdirSync(DOCS_DIR)
   .filter((f) => /^custom-error-.*\.html$/.test(f))
   .sort();
 
-const server = spawn("node_modules/.bin/serve", [DOCS_DIR, "-l", String(PORT), "--no-clipboard", "--no-port-switching"], {
-  stdio: "ignore",
-});
-const stopServer = () => server.kill("SIGTERM");
-process.on("exit", stopServer);
-
-const started = Date.now();
-while (true) {
-  try {
-    if ((await fetch(`${BASE}/${files[0]}`)).ok) break;
-  } catch {}
-  if (Date.now() - started > 20_000) {
-    console.error(`✖ local server on ${BASE} did not start`);
-    process.exit(1);
-  }
-  await new Promise((r) => setTimeout(r, 250));
-}
-
 const browser = await chromium.launch();
 let failed = 0;
 
@@ -47,7 +29,7 @@ for (const [name, device] of Object.entries(viewports)) {
   const context = await browser.newContext(device);
   for (const file of files) {
     const page = await context.newPage();
-    await page.goto(`${BASE}/${file}`, { waitUntil: "networkidle" });
+    await page.goto(pathToFileURL(path.resolve(DOCS_DIR, file)).href, { waitUntil: "networkidle" });
     const { violations } = await new AxeBuilder({ page }).withTags(AXE_TAGS).analyze();
     await page.close();
 
@@ -67,7 +49,6 @@ for (const [name, device] of Object.entries(viewports)) {
 }
 
 await browser.close();
-stopServer();
 
 if (failed) {
   console.error(`\n✖ ${failed} page/viewport combination(s) have accessibility violations`);

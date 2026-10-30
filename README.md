@@ -52,18 +52,11 @@ After every push to `main`, the **Pages smoke test** workflow (`npm run smoke`) 
 
 ## Local preview
 
+Every page is self-contained, so you can open any file in `docs/` straight in a browser after `npm run build`. To view them over HTTP instead:
+
 ```sh
 python3 -m http.server 3000 -d docs
 # then open http://localhost:3000/custom-error-500.html
-```
-
-Or, with the npm tooling (`npm install` first):
-
-```sh
-npm run serve                      # serves docs/ on http://localhost:3000
-# inline a page's external assets into a single self-contained file
-# (collapsify refuses localhost/private URLs by default; pass -x '^$' to allow them)
-npm run collapsify -- -o out.html https://oaknational.github.io/oak-cloudflare-error-pages/custom-error-500.html
 ```
 
 ## Infrastructure

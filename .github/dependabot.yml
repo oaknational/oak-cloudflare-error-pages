@@ -18,10 +18,11 @@ updates:
     schedule:
       interval: "daily"
 
-  # Track updates for the npm dev tooling (serve, collapsify). These are local
-  # tools only - the published pages in docs/ are static HTML - so updates are
-  # grouped into a single weekly PR to keep noise down. Without this entry
-  # Dependabot security PRs for npm cannot be rebased or recreated.
+  # Track updates for the npm dev tooling (html-validate, axe-core, Playwright).
+  # These only run the checks - the published pages in docs/ are static HTML
+  # with no runtime dependencies - so updates are grouped into a single weekly
+  # PR to keep noise down. Without this entry Dependabot security PRs for npm
+  # cannot be rebased or recreated.
   - package-ecosystem: "npm"
     directory: "/"
     schedule:

@@ -5,13 +5,7 @@
   "description": "Static Cloudflare Error Pages",
   "repository": "git@github.com:oaknational/oak-cloudflare-error-pages.git",
   "license": "MIT",
-  "dependencies": {
-    "collapsify": "^0.8.0",
-    "serve": "^14.2.6"
-  },
   "scripts": {
-    "serve": "serve docs/",
-    "collapsify": "collapsify",
     "check:pages": "node scripts/check-pages.mjs",
     "lint:html": "html-validate \"docs/*.html\"",
     "test:a11y": "node scripts/a11y.mjs",
@@ -20,8 +14,8 @@
     "build": "node scripts/build-pages.mjs"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.13.0",
-    "html-validate": "^11.10.0",
-    "playwright": "^1.62.1"
+    "@axe-core/playwright": "^4.14.0",
+    "html-validate": "^11.17.0",
+    "playwright": "^1.64.1"
   }
 }
