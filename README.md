@@ -59,10 +59,6 @@ python3 -m http.server 3000 -d docs
 # then open http://localhost:3000/custom-error-500.html
 ```
 
-## Infrastructure
-
-`infrastructure/project/` manages the Vercel preview project with Terraform (Terraform Cloud). This repository is public, so the real backend configuration is not committed: copy `backend.tf.template` to `backend.tf` and set the organisation before running Terraform locally. `backend.tf` is gitignored; CI regenerates it from the template for its checks.
-
 ## Security and licence
 
 Report vulnerabilities via Oak's [security.txt](https://www.thenational.academy/.well-known/security.txt) (see [SECURITY.md](SECURITY.md)). Code is licensed under the [MIT Licence](LICENSE); the embedded Lexend font is under the SIL Open Font License.
