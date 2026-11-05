@@ -5,6 +5,9 @@
   "description": "Static Cloudflare Error Pages",
   "repository": "git@github.com:oaknational/oak-cloudflare-error-pages.git",
   "license": "MIT",
+  "engines": {
+    "node": ">=24.22.1 <25"
+  },
   "scripts": {
     "check:pages": "node scripts/check-pages.mjs",
     "lint:html": "html-validate \"docs/*.html\"",
